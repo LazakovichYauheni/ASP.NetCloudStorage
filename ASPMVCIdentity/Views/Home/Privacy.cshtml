@@ -1,0 +1,35 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="~/css/upload.css">
+    <script src="~/js/uploadfile.js"></script>
+    @section Scripts
+    {
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script>
+            document.getElementById("file").onchange = function ()
+            {
+                document.getElementById("fileuploadurl").value = this.value;
+            };
+        </script>
+    }
+</head>
+<body>
+    @if (User.Identity.IsAuthenticated)
+    {
+    <form class="wrapper" enctype="multipart/form-data" onsubmit="return submitForm(this);" method="post" action="/Ajax/UploadFile">
+        @Html.AntiForgeryToken()
+        <input type="file" accept="" multiple required name="file1" id="file" />
+        <label for="file" class="btn-2">Choose</label>
+        <div class="fileupl">
+        <input type="text" id="fileuploadurl" readonly placeholder="No file selected">
+        </div>
+        <div class="submbtn">
+            <input type="submit" id="SubmitButton" value="Upload File(s)" />
+        </div>
+    </form>
+    <div id="divResponse"></div>
+    }
+</body>
+</html>

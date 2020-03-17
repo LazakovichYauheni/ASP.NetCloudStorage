@@ -1,0 +1,59 @@
+﻿@model List<ASPMVCIdentity.Entities.SharedFiles>
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/css/download.css" />
+</head>
+<body>
+    @if (User.Identity.IsAuthenticated)
+    {
+        @using (Html.BeginForm("Share", "Home", FormMethod.Post))
+        {
+            <table class="table table-hover" id="customers">
+                <thead>
+                    <tr>
+                        <th>
+                            User Name
+                        </th>
+                        <th>
+                            File Name
+                        </th>
+                        <th>
+
+                        </th>
+                        <th>
+                            Delete
+                        </th>
+                    </tr>
+                </thead>
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    <tr>
+                        <td>
+                            @Model[i].UserName
+                        </td>
+                        <td>
+                            @Model[i].FileName
+                        </td>
+                        <td>
+                            @Html.ActionLink("", "DownloadFile", new { fileName = @Model[i].FileName },new { @class="fa fa-download"})
+                        </td>
+                        <td>
+                            <a asp-action="DeleteSharedFiles" asp-route-id="@Model[i].Id"><i class="fa fa-trash" style="position:center"></i></a>
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        }
+        <p style="position:absolute;top:2.5%;left:70%">Hello,@User.Identity.Name</p>
+    }
+    else
+    {
+        <a asp-controller="Account" asp-action="Login" class="brk-btn">Sign In</a>
+        <a asp-controller="Account" asp-action="Register" class="brk-btn" style="position:absolute;top:58%;left:50%;transform:translate(-50%,-50%)">Registration</a>
+    }
+</body>
+</html>

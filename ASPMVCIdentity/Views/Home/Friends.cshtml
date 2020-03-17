@@ -1,0 +1,38 @@
+﻿@model List<AspNetUsers>
+<html>
+<head>
+    <link rel="stylesheet" href="~/css/download.css" />
+</head>
+<body>
+    @using (Html.BeginForm("Friends", "Home", FormMethod.Post))
+    {
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>
+                        UserName
+                    </th>
+                    <th>
+                        isFriend
+                    </th>
+                </tr>
+            </thead>
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <tr>
+                    <td>
+                        @Model[i].UserName
+                    </td>
+                    <td>
+
+                        <index asp-for="@Model[i].isFriend">@Html.CheckBoxFor(model => model[i].isFriend)</index>
+                        @Html.HiddenFor(model => model[i].UserName)
+                    </td>
+                </tr>
+            }
+        </table>
+
+        <input class="submitbutton" type="submit" value="Submit" />
+    }
+</body>
+</html>
